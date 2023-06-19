@@ -1,0 +1,372 @@
+@charset "UTF-8";
+/*+++++++++基本+++++++++*/
+html {
+  cursor: none;
+}
+body, div, section, p {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'noto serif CJK', sans-serif;
+  color: #333;
+  background-color: #f4f5f7;
+  font-size: 16px;
+  cursor: none;
+}
+a, a:hover, a:active, a:visited {
+  color: #333;
+  text-decoration: none;
+  cursor: none;
+}
+li {
+  list-style: none;
+}
+h1 {
+  font-size: 48px;
+  text-align: center;
+}
+h2 {
+  font-size: 36px;
+  text-align: center;
+}
+h3 {
+  font-size: 24px;
+}
+small {
+  font-size: 80%;
+}
+
+/*+++++++++テーブル+++++++++*/
+table {
+  width: 100%;
+}
+th {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+td {
+  vertical-align: top;
+  padding: 5px;
+  box-sizing: border-box;
+}
+.w100 {
+  width: 100px;
+}
+.w150 {
+  width: 150px;
+}
+
+/*++++++++++++++++++共通パーツ++++++++++++++++++*/
+/*+++++++++カーソル+++++++++*/
+#cursor {
+  position: fixed;
+  top: -5px;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+  mix-blend-mode: difference;
+  z-index: 1000;
+  transition: width 0.5s, height 0.5s, top 0.5s, left 0.5s;
+  transform: translate(0, 0);
+  pointer-events: none;
+}
+#cursor.active {
+  top: -20px;
+  left: -20px;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  mix-blend-mode: difference;
+}
+#cursor.active_me {
+  top: -20px;
+  left: -20px;
+  width: 100px;
+  height: 100px;
+  background: #888;
+  mix-blend-mode: color-burn;
+}
+
+/*+++++++++ハンバーガーメニュー+++++++++*/
+[type="checkbox"]:checked, [type="checkbox"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+.menu_icon:checked + label, .menu_icon:not(:checked) + label {
+  position: fixed;
+  top: 40px;
+  right: 35px;
+  display: block;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  cursor: none;
+  z-index: 10;
+}
+.menu_icon:checked + label:before, .menu_icon:not(:checked) + label:before {
+  position: absolute;
+  content: '';
+  display: block;
+  width: 30px;
+  height: 20px;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transition: border-width 100ms 1500ms ease, top 100ms 1600ms cubic-bezier(0.23, 1, 0.32, 1), height 100ms 1600ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms ease, transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.menu_icon:checked + label:after, .menu_icon:not(:checked) + label:after {
+  position: absolute;
+  content: '';
+  display: block;
+  width: 22px;
+  height: 2px;
+  z-index: 20;
+  top: 10px;
+  right: 4px;
+  background-color: #fff;
+  margin-top: -1px;
+  transition: width 100ms 1750ms ease, right 100ms 1750ms ease, margin-top 100ms ease, transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.menu_icon:checked + label:before {
+  top: 10px;
+  transform: rotate(45deg);
+  height: 2px;
+  background-color: #fff;
+  border-width: 0;
+  transition: border-width 100ms 340ms ease, top 100ms 300ms cubic-bezier(0.23, 1, 0.32, 1), height 100ms 300ms cubic-bezier(0.23, 1, 0.32, 1), background-color 200ms 500ms ease, transform 200ms 1700ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.menu_icon:checked + label:after {
+  width: 30px;
+  margin-top: 0;
+  right: 0;
+  transform: rotate(-45deg);
+  transition: width 100ms ease, right 100ms ease, margin-top 100ms 500ms ease, transform 200ms 1700ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.nav {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: block;
+  width: 80px;
+  height: 80px;
+  padding: 0;
+  margin: 0;
+  z-index: 9;
+  overflow: hidden;
+  box-shadow: 0 8px 30px 0 rgba(0, 0, 0, 0.3);
+  background-color: #333;
+  animation: border-transform 7s linear infinite;
+  transition: top 350ms 1100ms cubic-bezier(0.23, 1, 0.32, 1), right 350ms 1100ms cubic-bezier(0.23, 1, 0.32, 1), transform 250ms 1100ms ease, width 650ms 400ms cubic-bezier(0.23, 1, 0.32, 1), height 650ms 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.menu_icon:checked ~ .nav {
+  animation-play-state: paused;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  width: 200%;
+  height: 200%;
+  transition: top 350ms 700ms cubic-bezier(0.23, 1, 0.32, 1), right 350ms 700ms cubic-bezier(0.23, 1, 0.32, 1), transform 250ms 700ms ease, width 750ms 1000ms cubic-bezier(0.23, 1, 0.32, 1), height 750ms 1000ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.nav ul {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  z-index: 6;
+  text-align: center;
+  transform: translateY(-50%);
+  list-style: none;
+}
+.nav ul li {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 10px 0;
+  text-align: center;
+  list-style: none;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px);
+  transition: all 250ms linear;
+}
+.nav ul li:nth-child(1) {
+  transition-delay: 200ms;
+}
+.nav ul li:nth-child(2) {
+  transition-delay: 150ms;
+}
+.nav ul li:nth-child(3) {
+  transition-delay: 100ms;
+}
+.nav ul li:nth-child(4) {
+  transition-delay: 50ms;
+}
+.nav ul li h1 {
+  font-family: 'Comic Sans MS', 'noto serif CJK', sans-serif;
+  font-size: 10vh;
+  line-height: 1.5;
+  font-weight: 800;
+  display: inline-block;
+  position: relative;
+  color: #fff;
+}
+.nav ul li a {
+  font-size: 8vh;
+  text-transform: uppercase;
+  line-height: 1.2;
+  font-weight: 600;
+  display: inline-block;
+  position: relative;
+  color: #fff;
+  transition: all 250ms linear;
+}
+.nav ul li a:hover {
+  color: #f9ff90;
+}
+.nav ul li a:after {
+  display: block;
+  position: absolute;
+  top: 90%;
+  content: '';
+  height: 1vh;
+  margin-top: -1vh;
+  width: 0;
+  left: 0;
+  background-color: #f9ff90;
+  opacity: 0.8;
+  transition: width 250ms linear;
+}
+.nav ul li a:hover:after {
+  width: 100%;
+}
+.menu_icon:checked ~ .nav ul li {
+  pointer-events: auto;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 350ms ease, transform 250ms ease;
+}
+.menu_icon:checked ~ .nav ul li:nth-child(1) {
+  transition-delay: 1400ms;
+}
+.menu_icon:checked ~ .nav ul li:nth-child(2) {
+  transition-delay: 1480ms;
+}
+.menu_icon:checked ~ .nav ul li:nth-child(3) {
+  transition-delay: 1560ms;
+}
+.menu_icon:checked ~ .nav ul li:nth-child(4) {
+  transition-delay: 1640ms;
+}
+
+/*++++++++++++++++++ページ++++++++++++++++++*/
+.page {
+  width: 100%;
+  height: 100%;
+  padding: 100px 80px;
+  transition: opacity 1s ease;
+  box-sizing: border-box;
+}
+.page article {
+  padding: 40px 0
+}
+.section_h2 {
+  font-size: 36px;
+  text-align: center;
+}
+#about {
+  position: relative;
+}
+.about_img {
+  display: block;
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  top: 110px;
+  left: 250px;
+  line-height: 1;
+}
+.about_img img {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 100%;
+  border: 2px solid #dcdcdc;
+}
+p.comment {
+  line-height: 1.5em
+}
+
+/*+++++++++アーティクル+++++++++*/
+.article_h3 {
+  font-size: 24px;
+  text-align: left;
+}
+.article_imgBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.article_img {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  cursor: none;
+}
+.article_img img {
+  transition: transform .6s ease;
+  max-width: 100%;
+  height: 200px;
+  border: 1px solid #dcdcdc;
+}
+.article_img:hover img {
+  transform: scale(1.1);
+}
+.article_link {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.article_access::after {
+  content: "\f08e";
+  font-family: "Font Awesome 5 Free";
+  margin-left: 10px;
+}
+span.article_access {
+  cursor: none;
+}
+span.article_access::after {
+  content: "";
+}
+.col2 {
+  padding: 0px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.col2 li {
+  height: min-content;
+  width: 50%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
