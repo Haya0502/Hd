@@ -4,8 +4,7 @@ var cursor = document.getElementById("cursor");
 
 // カーソル用のdivタグをマウスに追従させる
 document.addEventListener("mousemove", function (e) {
-  cursor.style.transform =
-    "translate(" + e.clientX + "px, " + e.clientY + "px)";
+  cursor.style.transform =　"translate(" + e.clientX + "px, " + e.clientY + "px)";
 });
 
 // リンクにホバーした時にクラス追加、離れたらクラス削除
