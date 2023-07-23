@@ -9,6 +9,7 @@ document.addEventListener("mousemove", function (e) {
 });
 
 // リンクにホバーした時にクラス追加、離れたらクラス削除
+// -------mix-blend-mode: difference;--------
 var link = document.querySelectorAll("a");
 for (var i = 0; i < link.length; i++) {
   link[i].addEventListener("mouseover", function (e) {
@@ -26,16 +27,6 @@ for (var i = 0; i < img.length; i++) {
   });
   img[i].addEventListener("mouseout", function (e) {
     cursor.classList.remove("active");
-  });
-}
-
-var aboutImg = document.querySelectorAll(".about_img");
-for (var i = 0; i < aboutImg.length; i++) {
-  aboutImg[i].addEventListener("mouseover", function (e) {
-    cursor.classList.add("active_me");
-  });
-  aboutImg[i].addEventListener("mouseout", function (e) {
-    cursor.classList.remove("active_me");
   });
 }
 
@@ -59,184 +50,13 @@ for (var i = 0; i < spanAccess.length; i++) {
   });
 }
 
-//***********************Canvas***********************
-window.console.debug = function () {};
-window.Hd = {}, window.Hd.onloadEvents = [], window.Hd.utility = {}, window.Hd.startTopAnimation = function () {}, window.Hd.stopTopAnimation = function () {},
-
-  !(function () {
-    var a, b, c, d, e, f = 25,
-      g = 0.8,
-      h = 0,
-      i = 0.2,
-      j = "480% Comic Sans MS, noto serif CJK",
-      k = "Haya's design",
-      l = Math.floor,
-      m = !1,
-      n =
-      window.requestAnimationFrame
-      || window.webkitRequestAnimationFrame
-      || window.mozRequestAnimationFrame,
-      o = n || window.setTimeout,
-      p = function () {
-        (m = !1),
-        (a = document.getElementById("Canvas")),
-        (b = a.getContext("2d"));
-        var e = document.documentElement.clientWidth,
-          f = document.documentElement.clientHeight;
-        (a.style.width = e + "px"),
-        (a.style.height = f + "px"),
-        (c = a.width = e),
-        (d = a.height = f),
-        q(k),
-          (a.onmousemove = y),
-          (a.ontouchstart = A),
-          (a.ontouchmove = B),
-          (a.ontouchend = C),
-          (window.onresize = z),
-          (window.onorientationchange = z),
-          r();
-      },
-      q = function (a) {
-        (b.font = j), (b.textAlign = "center"), b.fillText(a, 0, 0);
-        var f = b.getImageData(0, 0, c, d),
-          g = f.data;
-        console.debug("data.length: ", g.length);
-
-        for (var h = 0, i = -1, k = 0, m = g.length; m > k; k += 4) {
-          var n = (g[k], g[k + 1], g[k + 2], g[k + 3]);
-
-          if (n > 0) {
-            var o = l(k / 4 / c);
-            o > i && ((i = o), h++);
-          }
-        }
-        console.debug("textHeight: ", h),
-          b.clearRect(0, 0, c, d),
-          b.fillText(a, c / 2, l((d - h) / 2));
-
-        for (
-          var f = b.getImageData(0, 0, c, d),
-            g = f.data,
-            p = [],
-            k = 0,
-            m = g.length; m > k; k += 4
-        ) {
-          var n = (g[k], g[k + 1], g[k + 2], g[k + 3]);
-
-          if (n > 0) {
-            var q = l((k / 4) % c),
-              o = l(k / 4 / c);
-            p.push(new x(q, o, 1, 1, n / 255));
-          }
-        }
-        console.debug("points.length: ", p.length),
-          (e = new w(p)),
-          b.clearRect(0, 0, c, d),
-          e.draw();
-      },
-      r = function () {
-        m || (t(), u(), o(r, 1e3 / f));
-      },
-      s = function () {
-        m = !0;
-      },
-      t = function () {
-        b.clearRect(0, 0, c, d), e && e.draw();
-      },
-      u = function () {
-        e && e.update();
-      },
-      v = function (a, b, c) {
-        (this.x = a), (this.y = b), (this.z = c || 1);
-      },
-      w = function (a) {
-        (this.points = a),
-        (this.mousePos = void 0),
-        (this.update = function () {
-          if (void 0 !== this.mousePos)
-            for (var b = 0, c = this.points.length; c > b; b++) {
-              var d = a[b],
-                e = this.mousePos.x - d.curPos.x,
-                f = this.mousePos.y - d.curPos.y,
-                g = e * e + f * f,
-                h = Math.sqrt(g);
-              100 > h
-                ? ((d.targetPos.x = d.curPos.x - e),
-                  (d.targetPos.y = d.curPos.y - f))
-                : ((d.targetPos.x = d.orgnPos.x),
-                  (d.targetPos.y = d.orgnPos.y)),
-                d.update();
-            }
-        }),
-        (this.draw = function () {
-          for (var a = 0, b = this.points.length; b > a; a++)
-            this.points[a].draw();
-        });
-      },
-      x = function (a, c, d, e, f) {
-        (this.orgnPos = new v(a, c, d)),
-        (this.curPos = new v(a, c, d)),
-        (this.targetPos = new v(a, c, d)),
-        (this.radius = e),
-        (this.size = e),
-        (this.friction = g),
-        (this.rotationForce = h),
-        (this.springStrength = i),
-        (this.velocity = new v(0, 0, 0)),
-        (f = void 0 === f ? 1 : f),
-        (this.color = "rgba(0,0,0," + f + ")"),
-        (this.update = function () {
-          var a = this.targetPos.x - this.curPos.x,
-            b = this.targetPos.y - this.curPos.y,
-            c = a * this.springStrength - this.rotationForce * b,
-            d = b * this.springStrength - this.rotationForce * a;
-          (this.velocity.x += c),
-          (this.velocity.x *= this.friction),
-          (this.curPos.x += this.velocity.x),
-          (this.velocity.y += d),
-          (this.velocity.y *= this.friction),
-          (this.curPos.y += this.velocity.y);
-          var e = this.orgnPos.x - this.curPos.x,
-            f = this.orgnPos.y - this.curPos.y,
-            g = e * e + f * f,
-            h = Math.sqrt(g);
-          this.targetPos.z = h / 30 + 1;
-          var i = this.targetPos.z - this.curPos.z,
-            j = i * this.springStrength;
-          (this.velocity.z += j),
-          (this.velocity.z *= this.friction),
-          (this.curPos.z = this.velocity.z),
-          (this.radius = this.size * this.curPos.z),
-          this.radius < 1 && (this.radius = 1);
-        }),
-        (this.draw = function () {
-          (b.fillStyle = this.color),
-          b.beginPath(),
-            b.arc(this.curPos.x, this.curPos.y, this.radius, 0, 2 * Math.PI),
-            b.fill();
-        });
-      },
-      y = function (a) {
-        e.mousePos = new v(a.offsetX, a.offsetY);
-      },
-      z = function () {
-        (e = null), p();
-      },
-      A = function (a) {
-        a.preventDefault();
-      },
-      B = function (a) {
-        a.preventDefault(),
-          (e.mousePos = new v(
-            a.targetTouches[0].pageX,
-            a.targetTouches[0].pageY
-          ));
-      },
-      C = function (a) {
-        a.preventDefault(), (e.mousePos = new v(0, 0));
-      };
-    p(),
-      window.Hd.onloadEvents.push(p),
-      (window.Hd.startTopAnimation = p),
-      (window.Hd.stopTopAnimation = s);
-  })();
+// -------mix-blend-mode: color-burn;-------
+var aboutImg = document.querySelectorAll(".about_img");
+for (var i = 0; i < aboutImg.length; i++) {
+  aboutImg[i].addEventListener("mouseover", function (e) {
+    cursor.classList.add("active_me");
+  });
+  aboutImg[i].addEventListener("mouseout", function (e) {
+    cursor.classList.remove("active_me");
+  });
+}
