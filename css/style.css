@@ -215,7 +215,7 @@ td {
 .nav ul li:nth-child(4) {
   transition-delay: 50ms;
 }
-.nav ul li h1 {
+/* .nav ul li h1 {
   font-family: 'Comic Sans MS', 'noto serif CJK', sans-serif;
   font-size: 10vh;
   line-height: 1.5;
@@ -223,7 +223,7 @@ td {
   display: inline-block;
   position: relative;
   color: #fff;
-}
+} */
 .nav ul li a {
   font-size: 8vh;
   text-transform: uppercase;
